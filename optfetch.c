@@ -1,5 +1,3 @@
-#include <stdbool.h>
-#include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -140,7 +138,11 @@ void fetchopts(int *argc, char ***argv, struct opttype *opts) {
 				} else {
 					/* it's a boolean option, so the next loop doesn't want to know about it */
 					if ((opts[option_index]).type == OPTTYPE_BOOL) {
-						*(bool*)opts[option_index].outdata = 1;
+#if __STDC_VERSION__ >= 199901L
+						*(_Bool*)opts[option_index].outdata = 1;
+#else
+						*(int*)opts[option_index].outdata = 1;
+#endif
 					/* let the next loop iteration get the value */
 					} else {
 						wasinarg = &opts[option_index];
