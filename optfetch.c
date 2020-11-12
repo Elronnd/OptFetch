@@ -159,10 +159,9 @@ end:
 		int i;
 
 		for (i = argindex; i < *argc; i++) {
-			/* -1, because argv starts at 1 (with 0 as program name), but newargv starts at 0 */
 			(*argv)[newargc++] = (*argv)[i];
 		}
 	}
 
-	*argc = newargc - 1;
+	*argc = newargc;
 }
